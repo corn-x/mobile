@@ -1,0 +1,38 @@
+apply plugin: 'java'
+
+
+sourceSets {
+    androidTest {
+        java.srcDirs = ['src/test/java']
+    }
+}
+
+evaluationDependsOn(':app')
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    def androidModule = project(':app')
+    compile androidModule
+
+    testCompile androidModule.android.applicationVariants.toList().first().javaCompile.classpath
+    testCompile androidModule.android.applicationVariants.toList().first().javaCompile.outputs.files
+    testCompile files(androidModule.plugins.findPlugin("com.android.application").getBootClasspath())
+
+    testCompile 'junit:junit:4.11'
+    testCompile 'org.robolectric:robolectric:2.3'
+    testCompile 'org.mockito:mockito-core:1.10.8'
+
+}
+
+def props = new Properties()
+file("../local.properties").withInputStream {
+    stream -> props.load(stream)
+}
+
+repositories {
+    maven {
+        url new File(props['sdk.dir'] + "/extras/android/m2repository/").toURI()
+    }
+}
