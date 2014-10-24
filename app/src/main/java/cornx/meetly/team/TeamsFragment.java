@@ -39,5 +39,6 @@ public class TeamsFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         teamListAdapter.setTeams(teamProvider.getTeams());
+        setListShown(true);
     }
 }
