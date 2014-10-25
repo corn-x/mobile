@@ -71,9 +71,7 @@ public class NewEventFragment extends Fragment {
             showPopup("Name cannot be empty.");
             return;
         }
-        System.out.println(name);
         long length = hours.getValue() * 60 + minutes.getValue();
-        System.out.println(length);
         if (length == 0) {
             showPopup("The event has to be longer than 0 minutes.");
             return;
