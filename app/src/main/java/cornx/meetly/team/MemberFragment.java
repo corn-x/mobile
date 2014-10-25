@@ -8,18 +8,21 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.List;
-
 import cornx.meetly.R;
 
 /**
  * Created by Mateusz on 2014-10-25.
  */
 public class MemberFragment extends Fragment{
+
+    public static final String TEAM_ID = "teamId";
+
     private ListView listView;
+    private long teamId;
     private TextView textView;
     private MemberListAdapter memberListAdapter;
     private MemberProvider memberProvider;
+    private TeamProvider teamProvider;
 
     public MemberFragment() {
         // Required empty public constructor
@@ -28,8 +31,10 @@ public class MemberFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        teamId = getArguments().getLong(TEAM_ID);
         memberListAdapter = new MemberListAdapter(getActivity());
         memberProvider = new MemberProviderDummy();
+        teamProvider = new TeamProviderDummy();
     }
 
     @Override
@@ -41,7 +46,8 @@ public class MemberFragment extends Fragment{
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         memberListAdapter.setMembers(memberProvider.getMembers());
-/// setview
+        Team team = teamProvider.getTeam(teamId);
+        textView.setText(team.getDescription());
     }
 
     @Override

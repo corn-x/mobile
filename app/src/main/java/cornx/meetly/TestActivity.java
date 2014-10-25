@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import cornx.meetly.team.TeamsFragment;
+import cornx.meetly.team.MemberFragment;
 
 
 public class TestActivity extends Activity {
@@ -15,8 +15,12 @@ public class TestActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         if (savedInstanceState == null) {
+            MemberFragment fragment = new MemberFragment();
+            Bundle bundle = new Bundle();
+            bundle.putLong(MemberFragment.TEAM_ID, 3);
+            fragment.setArguments(bundle);
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new TeamsFragment())
+                    .add(R.id.container, fragment)
                     .commit();
         }
     }

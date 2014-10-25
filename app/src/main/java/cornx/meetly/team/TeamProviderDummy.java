@@ -15,4 +15,11 @@ public class TeamProviderDummy implements TeamProvider {
         t.add(new Team("C"));
         return t;
     }
+
+    @Override
+    public Team getTeam(long teamId) {
+        Team t = new Team("A team");
+        t.setDescription("a description");
+        return t;
+    }
 }
