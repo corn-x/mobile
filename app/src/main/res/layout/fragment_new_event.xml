@@ -84,4 +84,14 @@
         android:layout_below="@id/textView4"
         android:layout_centerHorizontal="true" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/event_add_where"
+        android:hint="where"
+        android:layout_below="@+id/event_add_desc"
+        android:layout_toRightOf="@+id/textView4"
+        android:layout_toEndOf="@+id/textView4"
+        android:layout_marginTop="32dp" />
+
 </RelativeLayout>
