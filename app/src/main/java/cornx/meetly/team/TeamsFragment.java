@@ -3,9 +3,11 @@ package cornx.meetly.team;
 
 import android.app.Fragment;
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.squareup.otto.Bus;
@@ -20,7 +22,7 @@ import dagger.ObjectGraph;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TeamsFragment extends ListFragment {
+public class TeamsFragment extends ListFragment implements AdapterView.OnItemClickListener {
 
     private static final String TAG = "TeamsFragment";
 
@@ -62,6 +64,7 @@ public class TeamsFragment extends ListFragment {
         super.onViewCreated(view, savedInstanceState);
         listView = getListView();
         listView.setAdapter(teamListAdapter);
+        listView.setOnItemClickListener(this);
     }
 
     @Override
@@ -76,5 +79,10 @@ public class TeamsFragment extends ListFragment {
         Log.d(TAG, "onTeamsListLoaded");
         teamListAdapter.setTeams(teams.getTeamList());
         setListShown(true);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        startActivity(new Intent(getActivity(), TeamActivity.class));
     }
 }

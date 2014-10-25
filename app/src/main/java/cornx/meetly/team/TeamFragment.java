@@ -8,29 +8,53 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.List;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
+
+import javax.inject.Inject;
 
 import cornx.meetly.R;
+import cornx.meetly.app.MeetlyApplication;
+import dagger.ObjectGraph;
 
 /**
  * Created by Mateusz on 2014-10-25.
  */
-public class MemberFragment extends Fragment{
+public class TeamFragment extends Fragment {
     private ListView listView;
     private TextView textView;
     private MemberListAdapter memberListAdapter;
-    private MemberProvider memberProvider;
 
-    public MemberFragment() {
+    @Inject
+    MemberProvider memberProvider;
+    @Inject
+    Bus mBus;
+
+    public TeamFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ObjectGraph objectGraph = ((MeetlyApplication) getActivity().getApplication()).getObjectGraph();
+        objectGraph.inject(this);
+        mBus.register(this);
         memberListAdapter = new MemberListAdapter(getActivity());
-        memberProvider = new MemberProviderDummy();
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mBus.register(this);
+    }
+
+    @Override
+    public void onStop() {
+        mBus.unregister(this);
+        super.onStop();
+    }
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -40,8 +64,12 @@ public class MemberFragment extends Fragment{
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        memberListAdapter.setMembers(memberProvider.getMembers());
-/// setview
+        memberProvider.loadMembers();
+    }
+
+    @Subscribe
+    public void onMembersLoader(MembersLoadEvent event) {
+        memberListAdapter.setMembers(event.getMemberList());
     }
 
     @Override
