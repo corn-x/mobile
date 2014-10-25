@@ -20,6 +20,6 @@
     <string name="events">Events</string>
     <string name="title_activity_team">TeamActivity</string>
     <string name="details">Details</string>
-
+    <string name="title_activity_event">EventActivity</string>
 
 </resources>
