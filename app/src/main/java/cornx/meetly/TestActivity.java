@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import cornx.meetly.event.EventFragment;
+import cornx.meetly.newevent.NewEventFragment;
 
 
 public class TestActivity extends Activity {
@@ -16,7 +16,7 @@ public class TestActivity extends Activity {
         setContentView(R.layout.activity_test);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new EventFragment())
+                    .add(R.id.container, new NewEventFragment())
                     .commit();
         }
     }

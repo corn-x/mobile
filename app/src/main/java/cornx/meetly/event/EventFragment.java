@@ -24,7 +24,7 @@ public class EventFragment extends Fragment {
     private long id;
     @InjectView(R.id.button_addcal)
     Button button;
-    public static final String eventID = "current_event";
+    public static final String eventReq = "current_event";
     private TextView textView;
 
     public EventFragment() {
@@ -36,7 +36,7 @@ public class EventFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //id = getArguments().getLong(eventID);
+        //id = getArguments().getLong(eventReq);
         id = 3;
         eventProvider = new EventProviderDummy();
         event = eventProvider.getEvent(id);
