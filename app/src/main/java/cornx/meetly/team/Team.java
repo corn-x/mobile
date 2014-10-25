@@ -6,6 +6,16 @@ package cornx.meetly.team;
 public class Team {
     private String name;
 
+    private long id;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getDescription() {
         return description;
     }

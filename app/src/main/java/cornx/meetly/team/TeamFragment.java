@@ -26,6 +26,7 @@ public class TeamFragment extends Fragment {
     private ListView listView;
     private TextView textView;
     private MemberListAdapter memberListAdapter;
+    private long teamId;
 
     @Inject
     MemberProvider memberProvider;
@@ -39,6 +40,7 @@ public class TeamFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        teamId = getArguments().getLong(TeamActivity.TEAM_ID);
         ObjectGraph objectGraph = ((MeetlyApplication) getActivity().getApplication()).getObjectGraph();
         objectGraph.inject(this);
         mBus.register(this);
@@ -67,7 +69,7 @@ public class TeamFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        memberProvider.loadMembers();
+        memberProvider.loadMembers(teamId);
     }
 
     @Override
