@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -47,10 +48,21 @@ public class SignInActivity extends Activity implements Callback<JsonElement> {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /// sign in!
+                submitSignIn();
             }
         });
 
+    }
+
+    private void submitSignIn() {
+        if (email.getText().length() == 0) {
+            showPopup("E-mail cannot be empty.");
+            return;
+        }
+        if (passw.getText().length() == 0) {
+            showPopup("Password cannot be empty.");
+            return;
+        }
         Map<String, User> map = new HashMap<String, User>();
 
 
@@ -59,11 +71,14 @@ public class SignInActivity extends Activity implements Callback<JsonElement> {
                 .create(SignInService.class);
 
 
-        User user = new User("a@a.pl", "dupadupa");
+        User user = new User(emailinput.getText().toString(), passwinput.getText().toString());
         map.put("user", user);
         signInService.logIn(map, this);
     }
 
+    private void showPopup(String why) {
+        Toast.makeText(this, why, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,11 +101,17 @@ public class SignInActivity extends Activity implements Callback<JsonElement> {
 
     @Override
     public void success(JsonElement jsonElement, Response response) {
-        JsonObject jsonObject = jsonElement.getAsJsonObject();
-        String auth = jsonObject.get("authentication_token").getAsString();
-        AppModule.auth = auth;
-        Log.d("auth", auth);
-        startActivity(new Intent(this, MainActivity.class));
+        try {
+            JsonObject jsonObject = jsonElement.getAsJsonObject();
+            String auth = jsonObject.get("authentication_token").getAsString();
+            submitButton.setEnabled(false);
+            AppModule.auth = auth;
+            Log.d("auth", auth);
+            startActivity(new Intent(this, MainActivity.class));
+            this.finish();
+        } catch (NullPointerException e) {
+            showPopup("Invalid e-mail or password. Please try again.");
+        }
     }
 
     @Override
