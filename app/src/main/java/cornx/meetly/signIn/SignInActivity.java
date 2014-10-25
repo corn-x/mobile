@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -23,10 +27,29 @@ import retrofit.client.Response;
 
 public class SignInActivity extends Activity implements Callback<JsonElement> {
 
+    private TextView email;
+    private TextView passw;
+    private EditText emailinput;
+    private EditText passwinput;
+    private Button submitButton;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        email = (TextView) findViewById(R.id.activity_signin_mailtext);
+        passw = (TextView) findViewById(R.id.activity_signin_passwtext);
+        emailinput = (EditText) findViewById(R.id.activity_signin_inputmail);
+        passwinput = (EditText) findViewById(R.id.activity_signin_inputpassw);
+        submitButton = (Button) findViewById(R.id.activity_signin_button);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /// sign in!
+            }
+        });
 
         Map<String, User> map = new HashMap<String, User>();
 
