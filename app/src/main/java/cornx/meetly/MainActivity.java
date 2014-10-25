@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import cornx.meetly.dashboard.DashboardFragment;
+import cornx.meetly.events.EventsFragment;
 import cornx.meetly.team.TeamsFragment;
 
 
@@ -52,6 +53,10 @@ public class MainActivity extends Activity
             case 1:
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, new TeamsFragment()).commit();
+                break;
+            case 2:
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, new EventsFragment()).commit();
                 break;
         }
         onSectionAttached(position);

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import java.util.Locale;
 
 import cornx.meetly.R;
+import cornx.meetly.events.EventsFragment;
 
 public class TeamActivity extends Activity implements ActionBar.TabListener {
 
@@ -118,8 +119,7 @@ public class TeamActivity extends Activity implements ActionBar.TabListener {
                 case 0:
                     return new TeamFragment();
                 case 1:
-                    //TODO change it to events fragment
-                    return new TeamsFragment();
+                    return new EventsFragment();
                 default:
                     return null;
             }
