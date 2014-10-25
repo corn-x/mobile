@@ -6,6 +6,9 @@ import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
 
+import cornx.meetly.team.MemberProvider;
+import cornx.meetly.team.MemberProviderDummy;
+import cornx.meetly.team.TeamFragment;
 import cornx.meetly.team.TeamProvider;
 import cornx.meetly.team.TeamProviderDummy;
 import cornx.meetly.team.TeamsFragment;
@@ -18,7 +21,8 @@ import dagger.Provides;
 
 @Module(
         library = true,
-        injects = {MeetlyApplication.class, TeamsFragment.class, TeamProviderDummy.class}
+        injects = {MeetlyApplication.class, TeamsFragment.class, TeamProviderDummy.class,
+                TeamFragment.class}
 )
 
 
@@ -45,5 +49,11 @@ public class AppModule {
     @Singleton
     public TeamProvider provideTeamProvider(Bus bus) {
         return new TeamProviderDummy(bus);
+    }
+
+    @Provides
+    @Singleton
+    public MemberProvider provideMemberProvider(Bus bus) {
+        return new MemberProviderDummy(bus);
     }
 }

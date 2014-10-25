@@ -62,6 +62,7 @@ public class EventFragment extends Fragment {
     void addToCal() {
         textView.setText("42!");
     }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

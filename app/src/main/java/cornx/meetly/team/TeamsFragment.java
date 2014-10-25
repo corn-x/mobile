@@ -26,8 +26,6 @@ public class TeamsFragment extends ListFragment implements AdapterView.OnItemCli
 
     private static final String TAG = "TeamsFragment";
 
-    private static final String TAG = "TeamsFragment";
-
     private ListView listView;
     private TeamListAdapter teamListAdapter;
     @Inject
