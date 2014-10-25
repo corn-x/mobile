@@ -1,15 +1,19 @@
 package cornx.meetly.events;
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+
+import cornx.meetly.event.EventActivity;
 
 
 /**
  * Created by Mateusz on 2014-10-25.
  */
-public class EventsFragment extends ListFragment {
+public class EventsFragment extends ListFragment implements AdapterView.OnItemClickListener {
 
     private ListView listView;
     private EventsListAdapter eventsListAdapter;
@@ -31,6 +35,7 @@ public class EventsFragment extends ListFragment {
         super.onViewCreated(view, savedInstanceState);
         listView = getListView();
         listView.setAdapter(eventsListAdapter);
+        listView.setOnItemClickListener(this);
     }
 
     @Override
@@ -38,5 +43,10 @@ public class EventsFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
         eventsListAdapter.setEvents(eventsProvider.getEvents());
         setListShown(true);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        startActivity(new Intent(getActivity(), EventActivity.class));
     }
 }
