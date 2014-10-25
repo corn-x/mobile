@@ -24,7 +24,6 @@ public class NewEventFragment extends Fragment {
     private Button submitButton;
     private ProgressBar progress;
     public static final String teamReq = "team_id";
-
     public NewEventFragment() {
         // Required empty public constructor
     }
