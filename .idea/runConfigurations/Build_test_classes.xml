@@ -14,6 +14,8 @@
       </option>
       <option name="vmOptions" value="" />
     </ExternalSystemSettings>
+    <RunnerSettings RunnerId="ExternalSystemTaskRunner" />
+    <ConfigurationWrapper RunnerId="ExternalSystemTaskRunner" />
     <method />
   </configuration>
 </component>
