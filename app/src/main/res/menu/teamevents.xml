@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="cornx.meetly.events.EventsFragment">
+    <item
+        android:id="@+id/event_add"
+        android:title="@string/event_add"
+        android:showAsAction="always" />
+</menu>

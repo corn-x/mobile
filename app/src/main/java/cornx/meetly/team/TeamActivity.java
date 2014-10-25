@@ -8,7 +8,6 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.Locale;
@@ -19,6 +18,8 @@ import cornx.meetly.events.EventsFragment;
 public class TeamActivity extends Activity implements ActionBar.TabListener {
 
     public static final String TEAM_ID = "teamId";
+    //TODO teamID!
+    private long teamID = 2;
 
 
     SectionsPagerAdapter mSectionsPagerAdapter;
@@ -66,15 +67,16 @@ public class TeamActivity extends Activity implements ActionBar.TabListener {
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
+
     }
 
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.team, menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -119,7 +121,7 @@ public class TeamActivity extends Activity implements ActionBar.TabListener {
                 case 0:
                     return new TeamFragment();
                 case 1:
-                    return new EventsFragment();
+                    return new EventsFragment(teamID);
                 default:
                     return null;
             }

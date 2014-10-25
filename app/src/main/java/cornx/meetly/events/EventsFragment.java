@@ -3,10 +3,13 @@ package cornx.meetly.events;
 import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import cornx.meetly.R;
 import cornx.meetly.event.EventActivity;
 
 
@@ -18,9 +21,15 @@ public class EventsFragment extends ListFragment implements AdapterView.OnItemCl
     private ListView listView;
     private EventsListAdapter eventsListAdapter;
     private EventsProvider eventsProvider;
+    private long teamID;
 
     public EventsFragment() {
+        teamID = -1;
+    }
+
+    public EventsFragment(long teamID) {
         // Required empty public constructor
+        this.teamID = teamID;
     }
 
     @Override
@@ -28,6 +37,13 @@ public class EventsFragment extends ListFragment implements AdapterView.OnItemCl
         super.onCreate(savedInstanceState);
         eventsListAdapter = new EventsListAdapter(getActivity());
         eventsProvider = new EventsProviderDummy();
+        if (teamID != -1) setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        if (teamID != -1) inflater.inflate(R.menu.teamevents, menu);
     }
 
     @Override
@@ -41,7 +57,7 @@ public class EventsFragment extends ListFragment implements AdapterView.OnItemCl
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        eventsListAdapter.setEvents(eventsProvider.getEvents());
+        eventsListAdapter.setEvents(eventsProvider.getEvents(teamID));
         setListShown(true);
     }
 

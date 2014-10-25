@@ -3,6 +3,8 @@ package cornx.meetly.team;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -41,6 +43,7 @@ public class TeamFragment extends Fragment {
         objectGraph.inject(this);
         mBus.register(this);
         memberListAdapter = new MemberListAdapter(getActivity());
+        this.setHasOptionsMenu(true);
     }
 
     @Override
@@ -65,6 +68,12 @@ public class TeamFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         memberProvider.loadMembers();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.team_fragment, menu);
     }
 
     @Subscribe

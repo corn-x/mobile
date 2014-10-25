@@ -8,14 +8,19 @@ import cornx.meetly.event.Event;
 /**
  * Created by Mateusz on 2014-10-25.
  */
-public class EventsProviderDummy implements EventsProvider{
-
+public class EventsProviderDummy implements EventsProvider {
+    //TODO provide either all or teams events
     @Override
-    public List<Event> getEvents() {
+    public List<Event> getEvents(long teamID) {
         List<Event> list = new ArrayList<>();
-        list.add(new Event("First event", "desc 1", 1));
-        list.add(new Event("Second event", "desc 2", 2));
-        list.add(new Event("Third event", "desc 3", 3));
+        if (teamID == -1) { //if all
+            list.add(new Event("First event", "desc 1", 1));
+            list.add(new Event("Second event", "desc 2", 2));
+            list.add(new Event("Third event", "desc 3", 3));
+        } else {
+            list.add(new Event("First event for this team", "desc1", 1));
+            list.add(new Event("Second event for this team", "desc2", 2));
+        }
         return list;
     }
 

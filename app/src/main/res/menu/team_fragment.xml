@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="cornx.meetly.team.TeamFragment">
+    <item
+        android:id="@+id/member_add"
+        android:title="@string/add_member"
+        android:showAsAction="always" />
+</menu>
