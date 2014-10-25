@@ -20,7 +20,6 @@ import javax.inject.Inject;
 
 import cornx.meetly.R;
 import cornx.meetly.app.MeetlyApplication;
-import cornx.meetly.event.Event;
 import dagger.ObjectGraph;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -31,9 +30,10 @@ public class NewEventFragment extends Fragment implements Callback<JsonElement> 
 
     private TextView name;
     private TextView desc;
+    private TextView where;
     private NumberPicker hours;
     private NumberPicker minutes;
-    private Long teamID;
+    private long teamID;
     private Button submitButton;
     private ProgressBar progress;
     public static final String teamReq = "team_id";
@@ -81,6 +81,7 @@ public class NewEventFragment extends Fragment implements Callback<JsonElement> 
                 submitEvent();
             }
         });
+        where = (TextView) view.findViewById(R.id.event_add_where);
     }
 
     private void submitEvent() {
@@ -93,16 +94,18 @@ public class NewEventFragment extends Fragment implements Callback<JsonElement> 
             showPopup("The event has to be longer than 0 minutes.");
             return;
         }
-        NewEvent eventToSend = new NewEvent(name.getText().toString(), desc.getText().toString(), teamID, length);
+
+        if (where.getText().length() == 0) {
+            return;
+        }
+        NewEvent eventToSend = new NewEvent(name.getText().toString(), length, desc.getText().toString(), teamID, where.getText().toString());
         //send event
         progress.setVisibility(View.VISIBLE);
         progress.setProgress(50);
 
-        Map<String, Event> map = new HashMap<>();
+        Map<String, NewEvent> map = new HashMap<>();
         map.put("meeting", eventToSend);
         eventService.postEvent(map, this);
-
-        //wait for result //replace
 
     }
 

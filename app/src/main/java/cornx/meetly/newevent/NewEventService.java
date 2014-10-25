@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 
 import java.util.Map;
 
-import cornx.meetly.event.Event;
 import retrofit.Callback;
 import retrofit.http.Body;
 import retrofit.http.POST;
@@ -15,7 +14,7 @@ import retrofit.http.POST;
 public interface NewEventService {
 
     @POST("/meetings")
-    void postEvent(@Body Map<String, Event> map, Callback<JsonElement> callback);
+    void postEvent(@Body Map<String, NewEvent> map, Callback<JsonElement> callback);
 
 
 }

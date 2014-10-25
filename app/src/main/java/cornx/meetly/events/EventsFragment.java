@@ -70,9 +70,8 @@ public class EventsFragment extends ListFragment implements AdapterView.OnItemCl
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.event_add) {
-            Bundle bundle = new Bundle();
-            bundle.putLong(NewEventActivity.TEAM_ID, teamID);
             Intent intent = new Intent(getActivity(), NewEventActivity.class);
+            intent.putExtra(NewEventActivity.TEAM_ID, teamID);
             startActivity(intent);
             return true;
         }
