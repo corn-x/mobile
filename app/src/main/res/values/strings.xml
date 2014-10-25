@@ -25,5 +25,6 @@
     <string name="add_member">Add member</string>
     <string name="event_add">Add event</string>
     <string name="title_activity_sign_in">SignIn</string>
+    <string name="title_activity_add_team">AddTeamActivity</string>
 
 </resources>
