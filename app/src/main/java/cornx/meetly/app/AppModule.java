@@ -6,17 +6,19 @@ import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
 
+import cornx.meetly.event.EventFragment;
+import cornx.meetly.event.EventProviderDummy;
+import cornx.meetly.events.EventsFragment;
+import cornx.meetly.events.EventsProvider;
+import cornx.meetly.events.EventsProviderDummy;
 import cornx.meetly.team.MemberProvider;
 import cornx.meetly.team.MemberProviderDummy;
 import cornx.meetly.team.TeamFragment;
 import cornx.meetly.team.TeamProvider;
 import cornx.meetly.team.TeamProviderDummy;
-import cornx.meetly.team.TeamProviderImpl;
-import cornx.meetly.team.TeamService;
 import cornx.meetly.team.TeamsFragment;
 import dagger.Module;
 import dagger.Provides;
-import retrofit.RestAdapter;
 
 /**
  * @author Aleksander Ciepiela
@@ -25,19 +27,16 @@ import retrofit.RestAdapter;
 @Module(
         library = true,
         injects = {MeetlyApplication.class, TeamsFragment.class, TeamProviderDummy.class,
-                TeamFragment.class, TeamProviderImpl.class}
+                TeamFragment.class, EventsFragment.class, EventProviderDummy.class}
 )
 
 
 public class AppModule {
 
-    private static final String SERVER = "http://mints.ukasiu.pl:3000/api/v1";
     private MeetlyApplication meetlyApplication;
-    private RestAdapter restAdapter;
 
     public AppModule(MeetlyApplication meetlyApplication) {
         this.meetlyApplication = meetlyApplication;
-        restAdapter = new RestAdapter.Builder().setEndpoint(SERVER).build();
     }
 
     @Provides
@@ -53,20 +52,19 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public TeamProvider provideTeamProvider(TeamService teamService, Bus bus) {
-        /*return new TeamProviderDummy(bus);*/
-        return new TeamProviderImpl(teamService, bus);
+    public TeamProvider provideTeamProvider(Bus bus) {
+        return new TeamProviderDummy(bus);
+    }
+
+    @Provides
+    @Singleton
+    public EventsProvider provideEventsProvider(Bus bus) {
+        return new EventsProviderDummy(bus);
     }
 
     @Provides
     @Singleton
     public MemberProvider provideMemberProvider(Bus bus) {
         return new MemberProviderDummy(bus);
-    }
-
-    @Provides
-    @Singleton
-    public TeamService provideTeamService() {
-        return restAdapter.create(TeamService.class);
     }
 }
