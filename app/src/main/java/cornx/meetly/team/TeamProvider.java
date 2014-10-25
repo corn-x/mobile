@@ -7,4 +7,6 @@ import java.util.List;
  */
 public interface TeamProvider {
     public List<Team> getTeams();
+
+    public Team getTeam(long teamId);
 }
