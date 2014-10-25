@@ -18,8 +18,7 @@ import cornx.meetly.events.EventsFragment;
 public class TeamActivity extends Activity implements ActionBar.TabListener {
 
     public static final String TEAM_ID = "teamId";
-    //TODO teamID!
-    private long teamID = 2;
+    private long teamID;
 
 
     SectionsPagerAdapter mSectionsPagerAdapter;
@@ -33,6 +32,8 @@ public class TeamActivity extends Activity implements ActionBar.TabListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team);
+
+        teamID = getIntent().getLongExtra(TEAM_ID, -1);
 
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
@@ -119,7 +120,11 @@ public class TeamActivity extends Activity implements ActionBar.TabListener {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new TeamFragment();
+                    TeamFragment teamFragment = new TeamFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putLong(TEAM_ID, teamID);
+                    teamFragment.setArguments(bundle);
+                    return teamFragment;
                 case 1:
                     return new EventsFragment(teamID);
                 default:

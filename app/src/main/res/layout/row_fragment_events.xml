@@ -24,7 +24,7 @@
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:layout_centerVertical="true"
-        android:src="@drawable/arrow2"
+        android:src="@drawable/ic_action_forward"
 
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
