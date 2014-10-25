@@ -6,8 +6,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 import cornx.meetly.R;
 
 /**
@@ -18,6 +22,8 @@ public class EventFragment extends Fragment {
     private EventProvider eventProvider;
     private Event event;
     private long id;
+    @InjectView(R.id.button_addcal)
+    Button button;
     public static final String eventID = "current_event";
     private TextView textView;
 
@@ -46,10 +52,16 @@ public class EventFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ButterKnife.inject(this, view);
         textView = (TextView) view.findViewById(R.id.event_desc);
         textView.setText(event.getDescription());
+
     }
 
+    @OnClick(R.id.button_addcal)
+    void addToCal() {
+        textView.setText("42!");
+    }
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
