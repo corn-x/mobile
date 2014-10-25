@@ -11,10 +11,13 @@ import cornx.meetly.addmember.AddMemberService;
 import cornx.meetly.addteam.AddTeamActivity;
 import cornx.meetly.addteam.AddTeamService;
 import cornx.meetly.event.EventFragment;
+import cornx.meetly.event.EventProvider;
 import cornx.meetly.event.EventProviderImpl;
 import cornx.meetly.event.EventService;
 import cornx.meetly.events.EventsFragment;
 import cornx.meetly.events.EventsProvider;
+import cornx.meetly.events.EventsProviderImpl;
+import cornx.meetly.events.EventsService;
 import cornx.meetly.newevent.NewEventFragment;
 import cornx.meetly.newevent.NewEventService;
 import cornx.meetly.team.MemberProvider;
@@ -40,7 +43,7 @@ import retrofit.RestAdapter;
         injects = {MeetlyApplication.class, TeamsFragment.class, TeamProviderDummy.class,
                 TeamFragment.class, TeamProviderImpl.class, MemberProviderImpl.class,
                 EventFragment.class, EventsFragment.class, AddTeamActivity.class,
-                AddMemberActivity.class, NewEventFragment.class}
+                AddMemberActivity.class, NewEventFragment.class, EventProviderImpl.class}
 )
 
 
@@ -101,14 +104,14 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public EventService provideEventService() {
-        return restAdapter.create(EventService.class);
+    public EventsService provideEventsService() {
+        return restAdapter.create(EventsService.class);
     }
 
     @Provides
     @Singleton
-    public EventsProvider provideEventsProvider(EventService eventService, Bus bus) {
-        return new EventProviderImpl(bus, eventService);
+    public EventsProvider provideEventsProvider(EventsService eventsService, Bus bus) {
+        return new EventsProviderImpl(bus, eventsService);
     }
 
     @Provides
@@ -127,5 +130,17 @@ public class AppModule {
     @Singleton
     public NewEventService provideNewEventService() {
         return restAdapter.create(NewEventService.class);
+    }
+
+    @Provides
+    @Singleton
+    public EventService provideEventService() {
+        return restAdapter.create(EventService.class);
+    }
+
+    @Provides
+    @Singleton
+    public EventProvider provideEventProvider(Bus bus, EventService eventService) {
+        return new EventProviderImpl(eventService, bus);
     }
 }

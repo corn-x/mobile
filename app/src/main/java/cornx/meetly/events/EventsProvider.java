@@ -6,7 +6,5 @@ package cornx.meetly.events;
 public interface EventsProvider {
     public void loadEvents(long teamID);
 
-    public void loadEvent(long eventId);
-
     public void loadAllEventsForUser();
 }
