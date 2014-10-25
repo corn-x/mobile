@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cornx.meetly">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".app.MeetlyApplication"
         android:allowBackup="true"
@@ -26,11 +28,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".team.TeamActivity"
-            android:label="@string/title_activity_team"></activity>
-
+            android:label="@string/title_activity_team" />
+        <activity
+            android:name=".event.EventActivity"
+            android:label="@string/title_activity_event"></activity>
     </application>
 
 </manifest>

@@ -1,31 +1,29 @@
-package cornx.meetly;
+package cornx.meetly.event;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import cornx.meetly.events.EventsFragment;
+import cornx.meetly.R;
 
-
-public class TestActivity extends Activity {
+public class EventActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
+        setContentView(R.layout.activity_event);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new EventsFragment())
+                    .add(R.id.container, new EventFragment())
                     .commit();
         }
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.test, menu);
+        getMenuInflater().inflate(R.menu.event, menu);
         return true;
     }
 
