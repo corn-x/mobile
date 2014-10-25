@@ -16,6 +16,7 @@ import javax.inject.Inject;
 
 import cornx.meetly.R;
 import cornx.meetly.app.MeetlyApplication;
+import cornx.meetly.event.Event;
 import cornx.meetly.event.EventActivity;
 import dagger.ObjectGraph;
 
@@ -90,6 +91,10 @@ public class EventsFragment extends ListFragment implements AdapterView.OnItemCl
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        startActivity(new Intent(getActivity(), EventActivity.class));
+        long t_id = ((Event) (parent.getItemAtPosition((int) id))).getId();
+        //Toast.makeText(getActivity(),t_id+"",Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(getActivity(), EventActivity.class);
+        intent.putExtra(Event.tid, t_id);
+        startActivity(intent);
     }
 }
