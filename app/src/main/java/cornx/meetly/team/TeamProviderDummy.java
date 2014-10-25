@@ -21,16 +21,17 @@ public class TeamProviderDummy implements TeamProvider {
     @Override
     public void loadTeams() {
         List<Team> t = new ArrayList<>();
-        t.add(new Team("A"));
+/*        t.add(new Team("A"));
         t.add(new Team("B"));
-        t.add(new Team("C"));
+        t.add(new Team("C"));*/
         bus.post(new TeamsLoadEvent(t));
     }
 
     @Override
     public Team getTeam(long teamId) {
-        Team t = new Team("A team");
+/*        Team t = new Team("A team");*//*
         t.setDescription("a description");
-        return t;
+        return t;*/
+        return null;
     }
 }

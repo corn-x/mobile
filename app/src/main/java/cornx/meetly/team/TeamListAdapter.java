@@ -51,6 +51,7 @@ public class TeamListAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.row_fragment_teams, parent, false);
         }
         Team team = teams.get(position);
+
         TextView textView = (TextView) view.findViewById(R.id.row_fragment_teams_teamname);
         textView.setText(team.getName());
         return view;

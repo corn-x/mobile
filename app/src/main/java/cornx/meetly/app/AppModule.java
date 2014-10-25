@@ -6,6 +6,8 @@ import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
 
+import cornx.meetly.addteam.AddTeamActivity;
+import cornx.meetly.addteam.AddTeamService;
 import cornx.meetly.event.EventFragment;
 import cornx.meetly.event.EventProviderImpl;
 import cornx.meetly.event.EventService;
@@ -33,7 +35,7 @@ import retrofit.RestAdapter;
         library = true,
         injects = {MeetlyApplication.class, TeamsFragment.class, TeamProviderDummy.class,
                 TeamFragment.class, TeamProviderImpl.class, MemberProviderImpl.class,
-                EventFragment.class, EventsFragment.class}
+                EventFragment.class, EventsFragment.class, AddTeamActivity.class}
 )
 
 
@@ -102,5 +104,11 @@ public class AppModule {
     @Singleton
     public EventsProvider provideEventsProvider(EventService eventService, Bus bus) {
         return new EventProviderImpl(bus, eventService);
+    }
+
+    @Provides
+    @Singleton
+    public AddTeamService provideAddTeamService() {
+        return restAdapter.create(AddTeamService.class);
     }
 }

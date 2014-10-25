@@ -12,6 +12,6 @@ import retrofit.http.Path;
 public interface MemberService {
 
 
-    @GET("/teams/{id}")
+    @GET("/teams/{id}/members")
     void listMembers(@Path("id") long teamId, Callback<List<Member>> memberListCallback);
 }

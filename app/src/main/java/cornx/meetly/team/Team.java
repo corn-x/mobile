@@ -4,9 +4,12 @@ package cornx.meetly.team;
  * Created by Dawid on 25/10/2014.
  */
 public class Team {
-    private String name;
 
     private long id;
+
+    private String name;
+
+    private String description;
 
     public long getId() {
         return id;
@@ -14,6 +17,14 @@ public class Team {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -24,17 +35,4 @@ public class Team {
         this.description = description;
     }
 
-    private String description;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Team(String name) {
-        this.name = name;
-    }
 }

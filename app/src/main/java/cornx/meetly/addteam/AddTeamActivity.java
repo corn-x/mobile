@@ -17,10 +17,12 @@ import com.google.gson.JsonElement;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import cornx.meetly.R;
-import cornx.meetly.app.AppModule;
+import cornx.meetly.app.MeetlyApplication;
+import dagger.ObjectGraph;
 import retrofit.Callback;
-import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
@@ -33,11 +35,13 @@ public class AddTeamActivity extends Activity implements View.OnClickListener, C
     private Button submit;
     private ProgressBar progressBar;
 
+    @Inject
+    AddTeamService addTeamService;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_team);
-        setTitle("Add team");
         team_name = (TextView) findViewById(R.id.team_add_name);
         submit = (Button) findViewById(R.id.team_add_submit);
         progressBar = (ProgressBar) findViewById(R.id.team_add_progress);
@@ -51,9 +55,8 @@ public class AddTeamActivity extends Activity implements View.OnClickListener, C
             showPopup("Name cannot be empty.");
             return;
         }
-        AddTeamService addTeamService
-                = new RestAdapter.Builder().setEndpoint(AppModule.SERVER).build()
-                .create(AddTeamService.class);
+        ObjectGraph objectGraph = ((MeetlyApplication) getApplication()).getObjectGraph();
+        objectGraph.inject(this);
         Map<String, String> map = new HashMap<>();
         map.put("name", team_name.getText().toString());
         submit.setEnabled(false);

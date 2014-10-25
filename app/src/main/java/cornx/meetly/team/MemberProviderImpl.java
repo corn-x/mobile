@@ -30,6 +30,7 @@ public class MemberProviderImpl implements MemberProvider, Callback<List<Member>
 
     @Override
     public void success(List<Member> members, Response response) {
+
         bus.post(new MembersLoadEvent(members));
     }
 

@@ -52,6 +52,10 @@ public class SignInActivity extends Activity implements Callback<JsonElement> {
             }
         });
 
+        //TODO
+        emailinput.setText("a@a.pl");
+        passwinput.setText("dupadupa");
+
     }
 
     private void submitSignIn() {

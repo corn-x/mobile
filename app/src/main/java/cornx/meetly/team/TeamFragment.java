@@ -2,6 +2,7 @@ package cornx.meetly.team;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -81,6 +82,7 @@ public class TeamFragment extends Fragment {
     @Subscribe
     public void onMembersLoader(MembersLoadEvent event) {
         memberListAdapter.setMembers(event.getMemberList());
+        Log.d("onMEmberLoad", event.getMemberList().toString());
     }
 
     @Override

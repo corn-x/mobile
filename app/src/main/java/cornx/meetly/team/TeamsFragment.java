@@ -5,9 +5,9 @@ import android.app.Fragment;
 import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -18,6 +18,7 @@ import com.squareup.otto.Subscribe;
 import javax.inject.Inject;
 
 import cornx.meetly.R;
+import cornx.meetly.addteam.AddTeamActivity;
 import cornx.meetly.app.MeetlyApplication;
 import dagger.ObjectGraph;
 
@@ -83,9 +84,17 @@ public class TeamsFragment extends ListFragment implements AdapterView.OnItemCli
         inflater.inflate(R.menu.teams, menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.team_add) {
+            startActivity(new Intent(getActivity(), AddTeamActivity.class));
+            return true;
+        }
+        return false;
+    }
+
     @Subscribe
     public void onTeamsListLoaded(TeamsLoadEvent teams) {
-        Log.d(TAG, "onTeamsListLoaded");
         teamListAdapter.setTeams(teams.getTeamList());
         setListShown(true);
     }
