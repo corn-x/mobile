@@ -17,7 +17,7 @@ public class MemberProviderDummy implements MemberProvider {
     }
 
     @Override
-    public void loadMembers() {
+    public void loadMembers(long teamId) {
         List<Member> t = new ArrayList<>();
         t.add(new Member("asd@op.pl", "Grzesiek", "Kowal"));
         t.add(new Member("as@op.pl", "Owczarek", "Mateusz"));

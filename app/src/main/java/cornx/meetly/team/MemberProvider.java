@@ -5,5 +5,5 @@ package cornx.meetly.team;
  */
 public interface MemberProvider {
 
-    public void loadMembers();
+    public void loadMembers(long teamId);
 }

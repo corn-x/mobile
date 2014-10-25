@@ -83,6 +83,8 @@ public class TeamsFragment extends ListFragment implements AdapterView.OnItemCli
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        startActivity(new Intent(getActivity(), TeamActivity.class));
+        Intent intent = new Intent(getActivity(), TeamActivity.class);
+        intent.putExtra(TeamActivity.TEAM_ID, id);
+        startActivity(intent);
     }
 }
