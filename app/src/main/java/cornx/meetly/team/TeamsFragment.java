@@ -3,7 +3,10 @@ package cornx.meetly.team;
 
 import android.app.Fragment;
 import android.app.ListFragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,6 +32,8 @@ import dagger.ObjectGraph;
 public class TeamsFragment extends ListFragment implements AdapterView.OnItemClickListener {
 
     private static final String TAG = "TeamsFragment";
+    public static final String ACTION_REFRESH_TEAMS = "refreshTeams";
+    private BroadcastReceiver receiver;
 
     private ListView listView;
     private TeamListAdapter teamListAdapter;
@@ -50,6 +55,10 @@ public class TeamsFragment extends ListFragment implements AdapterView.OnItemCli
         mBus.register(this);
         teamListAdapter = new TeamListAdapter(getActivity());
         setHasOptionsMenu(true);
+        receiver = new TeamsRefreshListener();
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(ACTION_REFRESH_TEAMS);
+        getActivity().registerReceiver(receiver, filter);
     }
 
     @Override
@@ -62,6 +71,13 @@ public class TeamsFragment extends ListFragment implements AdapterView.OnItemCli
     public void onStop() {
         mBus.unregister(this);
         super.onStop();
+    }
+
+
+    @Override
+    public void onDestroy() {
+        getActivity().unregisterReceiver(receiver);
+        super.onDestroy();
     }
 
     @Override
@@ -105,5 +121,16 @@ public class TeamsFragment extends ListFragment implements AdapterView.OnItemCli
         intent.putExtra(TeamActivity.TEAM_ID, id);
         intent.putExtra(TeamActivity.TEAM_NAME, teamListAdapter.getItem(position).getName());
         startActivity(intent);
+    }
+
+    private class TeamsRefreshListener extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent == null) return;
+            if (ACTION_REFRESH_TEAMS.equals(intent.getAction())) {
+                teamProvider.loadTeams();
+            }
+        }
     }
 }

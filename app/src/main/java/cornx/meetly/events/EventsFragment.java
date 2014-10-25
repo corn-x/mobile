@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -16,7 +17,9 @@ import javax.inject.Inject;
 
 import cornx.meetly.R;
 import cornx.meetly.app.MeetlyApplication;
+import cornx.meetly.event.Event;
 import cornx.meetly.event.EventActivity;
+import cornx.meetly.newevent.NewEventActivity;
 import dagger.ObjectGraph;
 
 
@@ -65,6 +68,18 @@ public class EventsFragment extends ListFragment implements AdapterView.OnItemCl
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.event_add) {
+            Bundle bundle = new Bundle();
+            bundle.putLong(NewEventActivity.TEAM_ID, teamID);
+            Intent intent = new Intent(getActivity(), NewEventActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         listView = getListView();
@@ -90,6 +105,10 @@ public class EventsFragment extends ListFragment implements AdapterView.OnItemCl
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        startActivity(new Intent(getActivity(), EventActivity.class));
+        long t_id = ((Event) (parent.getItemAtPosition((int) id))).getId();
+        //Toast.makeText(getActivity(),t_id+"",Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(getActivity(), EventActivity.class);
+        intent.putExtra(Event.tid, t_id);
+        startActivity(intent);
     }
 }

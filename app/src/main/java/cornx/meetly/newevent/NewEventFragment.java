@@ -11,10 +11,23 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonElement;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.inject.Inject;
+
 import cornx.meetly.R;
+import cornx.meetly.app.MeetlyApplication;
+import cornx.meetly.event.Event;
+import dagger.ObjectGraph;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
-public class NewEventFragment extends Fragment {
+public class NewEventFragment extends Fragment implements Callback<JsonElement> {
 
     private TextView name;
     private TextView desc;
@@ -25,6 +38,9 @@ public class NewEventFragment extends Fragment {
     private ProgressBar progress;
     public static final String teamReq = "team_id";
 
+    @Inject
+    NewEventService eventService;
+
     public NewEventFragment() {
         // Required empty public constructor
     }
@@ -32,8 +48,9 @@ public class NewEventFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //teamID = getArguments().getLong(teamReq);
-        teamID = 3l;
+        ObjectGraph objectGraph = ((MeetlyApplication) getActivity().getApplication()).getObjectGraph();
+        objectGraph.inject(this);
+        teamID = getArguments().getLong(NewEventActivity.TEAM_ID);
     }
 
     @Override
@@ -80,12 +97,28 @@ public class NewEventFragment extends Fragment {
         //send event
         progress.setVisibility(View.VISIBLE);
         progress.setProgress(50);
-        //wait for result
-        showPopup("Event submitted."); //replace
+
+        Map<String, Event> map = new HashMap<>();
+        map.put("meeting", eventToSend);
+        eventService.postEvent(map, this);
+
+        //wait for result //replace
 
     }
 
     private void showPopup(String why) {
         Toast.makeText(getActivity(), why, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void success(JsonElement jsonElement, Response response) {
+        progress.setVisibility(View.INVISIBLE);
+        showPopup("Event submitted.");
+    }
+
+    @Override
+    public void failure(RetrofitError error) {
+        progress.setVisibility(View.INVISIBLE);
+        showPopup("Failed");
     }
 }
