@@ -8,7 +8,7 @@ import cornx.meetly.event.Event;
  * Created by Mateusz on 2014-10-25.
  */
 public interface EventsProvider {
-    public void loadEvents();
+    public List<Event> getEvents(long teamID); //-1 all
 
-    public void loadEvent(long eventId);
+    public Event getEvent(long eventId);
 }

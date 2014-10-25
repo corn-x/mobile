@@ -1,58 +1,49 @@
 package cornx.meetly.events;
 
 import android.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.squareup.otto.Bus;
-import com.squareup.otto.Subscribe;
-
-import javax.inject.Inject;
-
-import cornx.meetly.app.MeetlyApplication;
-import cornx.meetly.team.MemberProvider;
-import cornx.meetly.team.MembersLoadEvent;
-import dagger.ObjectGraph;
+import cornx.meetly.R;
+import cornx.meetly.event.EventActivity;
 
 
 /**
  * Created by Mateusz on 2014-10-25.
  */
-public class EventsFragment extends ListFragment {
+public class EventsFragment extends ListFragment implements AdapterView.OnItemClickListener {
 
     private ListView listView;
     private EventsListAdapter eventsListAdapter;
-
-    @Inject
-    EventsProvider eventsProvider;
-    @Inject
-    Bus mBus;
+    private EventsProvider eventsProvider;
+    private long teamID;
 
     public EventsFragment() {
+        teamID = -1;
+    }
+
+    public EventsFragment(long teamID) {
         // Required empty public constructor
+        this.teamID = teamID;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ObjectGraph objectGraph = ((MeetlyApplication) getActivity().getApplication()).getObjectGraph();
-        objectGraph.inject(this);
-        mBus.register(this);
         eventsListAdapter = new EventsListAdapter(getActivity());
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mBus.register(this);
+        eventsProvider = new EventsProviderDummy();
+        if (teamID != -1) setHasOptionsMenu(true);
     }
 
     @Override
-    public void onStop() {
-        mBus.unregister(this);
-        super.onStop();
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        if (teamID != -1) inflater.inflate(R.menu.teamevents, menu);
     }
 
     @Override
@@ -60,17 +51,18 @@ public class EventsFragment extends ListFragment {
         super.onViewCreated(view, savedInstanceState);
         listView = getListView();
         listView.setAdapter(eventsListAdapter);
-    }
-
-    @Subscribe
-    public void onEventsLoader(EventsLoadEvent event) {
-        eventsListAdapter.setEvents(event.getEventList());
+        listView.setOnItemClickListener(this);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        eventsProvider.loadEvents();
+        eventsListAdapter.setEvents(eventsProvider.getEvents(teamID));
         setListShown(true);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        startActivity(new Intent(getActivity(), EventActivity.class));
     }
 }

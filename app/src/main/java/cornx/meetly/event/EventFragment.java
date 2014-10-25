@@ -66,6 +66,6 @@ public class EventFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //what about name? should be in activity header
+        getActivity().setTitle(event.getName());
     }
 }
