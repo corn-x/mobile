@@ -1,8 +1,19 @@
-<RelativeLayout
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_signin">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logo"
+        android:src="@drawable/meetly"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
+        android:layout_marginTop="-20dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -10,8 +21,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="E-mail:"
         android:id="@+id/activity_signin_mailtext"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@id/logo"
+        android:layout_marginTop="-15dp"
+        android:layout_centerHorizontal="true"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,13 +34,14 @@
         android:id="@+id/activity_signin_passwtext"
         android:layout_below="@+id/activity_signin_inputmail"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp" />
+        android:layout_marginTop="8dp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
+        android:layout_marginTop="8dp"
         android:id="@+id/activity_signin_inputmail"
         android:layout_below="@+id/activity_signin_mailtext"
         android:layout_centerHorizontal="true" />
@@ -37,6 +51,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
+        android:layout_marginTop="8dp"
         android:id="@+id/activity_signin_inputpassw"
         android:layout_below="@+id/activity_signin_passwtext"
         android:layout_centerHorizontal="true" />
@@ -45,9 +60,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/activity_signin_inputpassw"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="15dp"
         android:text="Sign in!"
         android:id="@+id/activity_signin_button"
         android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>
