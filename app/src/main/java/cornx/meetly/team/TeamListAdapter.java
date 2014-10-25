@@ -41,7 +41,7 @@ public class TeamListAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return teams.get(position).getId();
     }
 
     @Override

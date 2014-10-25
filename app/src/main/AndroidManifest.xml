@@ -30,10 +30,21 @@
         </activity>
         <activity
             android:name=".team.TeamActivity"
-            android:label="@string/title_activity_team" />
+            android:label="@string/title_activity_team"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".event.EventActivity"
-            android:label="@string/title_activity_event"></activity>
+            android:label="@string/title_activity_event"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".signIn.SignInActivity"
+            android:label="@string/title_activity_sign_in">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
