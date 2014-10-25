@@ -3,6 +3,7 @@ package cornx.meetly.addteam;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ import javax.inject.Inject;
 
 import cornx.meetly.R;
 import cornx.meetly.app.MeetlyApplication;
+import cornx.meetly.team.TeamsFragment;
 import dagger.ObjectGraph;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -91,6 +93,7 @@ public class AddTeamActivity extends Activity implements View.OnClickListener, C
     @Override
     public void success(JsonElement jsonElement, Response response) {
         showPopup("Team added successfully.");
+        sendBroadcast(new Intent(TeamsFragment.ACTION_REFRESH_TEAMS));
         this.finish();
     }
 

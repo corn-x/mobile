@@ -6,10 +6,10 @@ package cornx.meetly.team;
 public class Member {
     private String firstName;
     private String lastName;
-    private String mail;
+    private String email;
 
-    public Member(String mail, String lastName, String firstName) {
-        this.mail = mail;
+    public Member(String email, String lastName, String firstName) {
+        this.email = email;
         this.lastName = lastName;
         this.firstName = firstName;
     }
@@ -31,14 +31,15 @@ public class Member {
     }
 
     public String getMail() {
-        return mail;
+        return email;
     }
 
     public void setMail(String mail) {
-        this.mail = mail;
+        this.email = email;
     }
+
     @Override
     public String toString() {
-        return firstName + " " + lastName + " " + mail;
+        return firstName + " " + lastName + " " + email;
     }
 }
