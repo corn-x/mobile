@@ -13,20 +13,10 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".TestActivity"
             android:label="@string/title_activity_test">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".team.TeamActivity"
@@ -38,25 +28,28 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".signIn.SignInActivity"
-            android:label="@string/title_activity_sign_in">
-            <intent-filter>
+            android:label="@string/app_name">
+        <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
+            android:parentActivityName=".MainActivity"
             android:name=".addteam.AddTeamActivity"
             android:label="@string/app_name">
 
         </activity>
         <activity
+            android:parentActivityName=".MainActivity"
             android:name=".addmember.AddMemberActivity"
             android:label="@string/app_name">
 
         </activity>
 
         <activity
+            android:parentActivityName=".MainActivity"
             android:name=".newevent.NewEventActivity"
             android:label="@string/app_name">
 
