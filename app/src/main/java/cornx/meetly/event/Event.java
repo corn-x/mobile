@@ -6,6 +6,7 @@ package cornx.meetly.event;
 public class Event {
 
     private long id;
+    public static final String tid = "teamID";
     private String name;
     private String description;
     private String creator;

@@ -17,7 +17,7 @@ public interface EventService {
     @GET("/meetings/my")
     void listAllEventsForUser(Callback<List<Event>> eventCallback);
 
-    @GET("meetings/{id}")
+    @GET("/meetings/{id}")
     void listEvent(@Path("id") long eventId, Callback<List<Event>> eventCallback);
 
 }

@@ -14,8 +14,6 @@ import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
-import butterknife.InjectView;
-import butterknife.OnClick;
 import cornx.meetly.R;
 import cornx.meetly.app.MeetlyApplication;
 import cornx.meetly.events.EventsLoadEvent;
@@ -25,7 +23,7 @@ import dagger.ObjectGraph;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventFragment extends Fragment {
+public class EventFragment extends Fragment implements View.OnClickListener {
 
     @Inject
     EventsProvider eventsProvider;
@@ -34,9 +32,7 @@ public class EventFragment extends Fragment {
 
     private Event event;
     private long id;
-    @InjectView(R.id.button_addcal)
     Button button;
-    public static final String eventReq = "current_event";
     private TextView textView;
 
     public EventFragment() {
@@ -60,11 +56,11 @@ public class EventFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //id = getArguments().getLong(eventReq);
+        id = getArguments().getLong(Event.tid, -1l);
+        //id=3;
         ObjectGraph objectGraph = ((MeetlyApplication) getActivity().getApplication()).getObjectGraph();
         objectGraph.inject(this);
         bus.register(this);
-        id = 3;
         eventsProvider.loadEvent(id);
     }
 
@@ -79,11 +75,8 @@ public class EventFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         textView = (TextView) view.findViewById(R.id.event_desc);
-    }
-
-    @OnClick(R.id.button_addcal)
-    void addToCal() {
-        textView.setText("42!");
+        button = (Button) view.findViewById(R.id.button_addcal);
+        button.setOnClickListener(this);
     }
 
     @Subscribe
@@ -93,4 +86,8 @@ public class EventFragment extends Fragment {
         textView.setText(event.getDescription());
     }
 
+    @Override
+    public void onClick(View v) {
+        //textView.setText(""+id);
+    }
 }

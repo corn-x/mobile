@@ -13,9 +13,16 @@ public class EventActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
+
         if (savedInstanceState == null) {
+            EventFragment eventFragment = new EventFragment();
+            long id = getIntent().getLongExtra(Event.tid, -1l);
+            Bundle bundle = new Bundle();
+            bundle.putLong(Event.tid, id);
+            //Toast.makeText(this,""+id,Toast.LENGTH_LONG).show();
+            eventFragment.setArguments(bundle);
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new EventFragment())
+                    .add(R.id.container, eventFragment)
                     .commit();
         }
     }
