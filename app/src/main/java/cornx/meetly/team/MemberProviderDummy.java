@@ -1,5 +1,7 @@
 package cornx.meetly.team;
 
+import com.squareup.otto.Bus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,13 +10,19 @@ import java.util.List;
  */
 public class MemberProviderDummy implements MemberProvider {
 
+    private Bus bus;
+
+    public MemberProviderDummy(Bus bus) {
+        this.bus = bus;
+    }
+
     @Override
-    public List<Member> getMembers() {
+    public void loadMembers() {
         List<Member> t = new ArrayList<>();
         t.add(new Member("asd@op.pl", "Grzesiek", "Kowal"));
         t.add(new Member("as@op.pl", "Owczarek", "Mateusz"));
         t.add(new Member("fsd@op.pl", "Kowalski", "Jan"));
-        return t;
+        bus.post(new MembersLoadEvent(t));
     }
 }
 
