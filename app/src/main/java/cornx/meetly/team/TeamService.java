@@ -10,6 +10,6 @@ import retrofit.http.GET;
  */
 public interface TeamService {
 
-    @GET("/teams/my")
+    @GET("/teams")
     void listTeams(Callback<List<Team>> teamListCallback);
 }

@@ -31,7 +31,7 @@ import retrofit.RestAdapter;
 
 public class AppModule {
 
-    private static final String SERVER = "http://";
+    private static final String SERVER = "http://mints.ukasiu.pl:3000/api/v1";
     private MeetlyApplication meetlyApplication;
     private RestAdapter restAdapter;
 
