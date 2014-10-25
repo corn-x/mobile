@@ -1,15 +1,10 @@
 package cornx.meetly.events;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import cornx.meetly.event.Event;
-
 /**
  * Created by Mateusz on 2014-10-25.
  */
-public class EventsProviderDummy implements EventsProvider {
-    //TODO provide either all or teams events
+public abstract class EventsProviderDummy implements EventsProvider {
+/*    //TODO provide either all or teams events
     @Override
     public List<Event> getEvents(long teamID) {
         List<Event> list = new ArrayList<>();
@@ -28,5 +23,5 @@ public class EventsProviderDummy implements EventsProvider {
     public Event getEvent(long eventId) {
         return new Event("Lol event wow no ID wow", "wow", 10);
         /// this line is so dumb omg sry
-    }
+    }*/
 }

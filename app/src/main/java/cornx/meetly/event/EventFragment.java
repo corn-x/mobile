@@ -9,17 +9,29 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import butterknife.ButterKnife;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
+
+import javax.inject.Inject;
+
 import butterknife.InjectView;
 import butterknife.OnClick;
 import cornx.meetly.R;
+import cornx.meetly.app.MeetlyApplication;
+import cornx.meetly.events.EventsLoadEvent;
+import cornx.meetly.events.EventsProvider;
+import dagger.ObjectGraph;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class EventFragment extends Fragment {
 
-    private EventProvider eventProvider;
+    @Inject
+    EventsProvider eventsProvider;
+    @Inject
+    Bus bus;
+
     private Event event;
     private long id;
     @InjectView(R.id.button_addcal)
@@ -32,14 +44,28 @@ public class EventFragment extends Fragment {
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        bus.register(this);
+    }
+
+    @Override
+    public void onStop() {
+        bus.unregister(this);
+        super.onStop();
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //id = getArguments().getLong(eventReq);
+        ObjectGraph objectGraph = ((MeetlyApplication) getActivity().getApplication()).getObjectGraph();
+        objectGraph.inject(this);
+        bus.register(this);
         id = 3;
-        eventProvider = new EventProviderDummy();
-        event = eventProvider.getEvent(id);
+        eventsProvider.loadEvent(id);
     }
 
     @Override
@@ -52,10 +78,7 @@ public class EventFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.inject(this, view);
         textView = (TextView) view.findViewById(R.id.event_desc);
-        textView.setText(event.getDescription());
-
     }
 
     @OnClick(R.id.button_addcal)
@@ -63,9 +86,11 @@ public class EventFragment extends Fragment {
         textView.setText("42!");
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    @Subscribe
+    public void onEventLoad(EventsLoadEvent eventsLoadEvent) {
+        event = eventsLoadEvent.getEventList().get(0);
         getActivity().setTitle(event.getName());
+        textView.setText(event.getDescription());
     }
+
 }

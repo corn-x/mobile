@@ -128,7 +128,11 @@ public class TeamActivity extends Activity implements ActionBar.TabListener {
                     teamFragment.setArguments(bundle);
                     return teamFragment;
                 case 1:
-                    return new EventsFragment(teamID);
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putLong(EventsFragment.TEAM_ID, teamID);
+                    EventsFragment fragment = new EventsFragment();
+                    fragment.setArguments(bundle1);
+                    return fragment;
                 default:
                     return null;
             }

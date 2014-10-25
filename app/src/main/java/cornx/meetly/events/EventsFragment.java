@@ -9,8 +9,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
+
+import javax.inject.Inject;
+
 import cornx.meetly.R;
+import cornx.meetly.app.MeetlyApplication;
 import cornx.meetly.event.EventActivity;
+import dagger.ObjectGraph;
 
 
 /**
@@ -18,25 +25,36 @@ import cornx.meetly.event.EventActivity;
  */
 public class EventsFragment extends ListFragment implements AdapterView.OnItemClickListener {
 
+    public static final String TEAM_ID = "teamID";
+
     private ListView listView;
     private EventsListAdapter eventsListAdapter;
-    private EventsProvider eventsProvider;
+    @Inject
+    EventsProvider eventsProvider;
+    @Inject
+    Bus bus;
     private long teamID;
 
-    public EventsFragment() {
-        teamID = -1;
+    @Override
+    public void onStart() {
+        super.onStart();
+        bus.register(this);
     }
 
-    public EventsFragment(long teamID) {
-        // Required empty public constructor
-        this.teamID = teamID;
+    @Override
+    public void onStop() {
+        bus.unregister(this);
+        super.onStop();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ObjectGraph objectGraph = ((MeetlyApplication) getActivity().getApplication()).getObjectGraph();
+        objectGraph.inject(this);
+        bus.register(this);
+        teamID = getArguments() == null ? -1L : getArguments().getLong(TEAM_ID, -1l);
         eventsListAdapter = new EventsListAdapter(getActivity());
-        eventsProvider = new EventsProviderDummy();
         if (teamID != -1) setHasOptionsMenu(true);
     }
 
@@ -57,7 +75,16 @@ public class EventsFragment extends ListFragment implements AdapterView.OnItemCl
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        eventsListAdapter.setEvents(eventsProvider.getEvents(teamID));
+        if (teamID != -1) {
+            eventsProvider.loadEvents(teamID);
+        } else {
+            eventsProvider.loadAllEventsForUser();
+        }
+    }
+
+    @Subscribe
+    public void onEventsLoadFinished(EventsLoadEvent eventsLoadEvent) {
+        eventsListAdapter.setEvents(eventsLoadEvent.getEventList());
         setListShown(true);
     }
 
