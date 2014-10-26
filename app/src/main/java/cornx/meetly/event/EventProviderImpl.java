@@ -4,10 +4,6 @@ import android.util.Log;
 
 import com.squareup.otto.Bus;
 
-import java.util.List;
-
-import cornx.meetly.events.EventsLoadEvent;
-import cornx.meetly.events.EventsProvider;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -15,21 +11,14 @@ import retrofit.client.Response;
 /**
  * @author Aleksander Ciepiela
  */
-public class EventProviderImpl implements EventsProvider, Callback<List<Event>> {
+public class EventProviderImpl implements EventProvider, Callback<Event> {
 
-    private static final String TAG = "EventProviderImpl";
-
-    private Bus bus;
     private EventService eventService;
+    private Bus bus;
 
-    public EventProviderImpl(Bus bus, EventService eventService) {
-        this.bus = bus;
+    public EventProviderImpl(EventService eventService, Bus bus) {
         this.eventService = eventService;
-    }
-
-    @Override
-    public void loadEvents(long teamID) {
-        eventService.listEventForTeam(teamID, this);
+        this.bus = bus;
     }
 
     @Override
@@ -38,17 +27,12 @@ public class EventProviderImpl implements EventsProvider, Callback<List<Event>> 
     }
 
     @Override
-    public void loadAllEventsForUser() {
-        eventService.listAllEventsForUser(this);
-    }
-
-    @Override
-    public void success(List<Event> events, Response response) {
-        bus.post(new EventsLoadEvent(events));
+    public void success(Event event, Response response) {
+        bus.post(event);
     }
 
     @Override
     public void failure(RetrofitError error) {
-        Log.d(TAG, error.toString());
+        Log.d("eventProvider", error.toString());
     }
 }

@@ -16,8 +16,6 @@ import javax.inject.Inject;
 
 import cornx.meetly.R;
 import cornx.meetly.app.MeetlyApplication;
-import cornx.meetly.events.EventsLoadEvent;
-import cornx.meetly.events.EventsProvider;
 import dagger.ObjectGraph;
 
 /**
@@ -26,7 +24,7 @@ import dagger.ObjectGraph;
 public class EventFragment extends Fragment implements View.OnClickListener {
 
     @Inject
-    EventsProvider eventsProvider;
+    EventProvider eventProvider;
     @Inject
     Bus bus;
 
@@ -61,7 +59,7 @@ public class EventFragment extends Fragment implements View.OnClickListener {
         ObjectGraph objectGraph = ((MeetlyApplication) getActivity().getApplication()).getObjectGraph();
         objectGraph.inject(this);
         bus.register(this);
-        eventsProvider.loadEvent(id);
+        eventProvider.loadEvent(id);
     }
 
     @Override
@@ -80,8 +78,8 @@ public class EventFragment extends Fragment implements View.OnClickListener {
     }
 
     @Subscribe
-    public void onEventLoad(EventsLoadEvent eventsLoadEvent) {
-        event = eventsLoadEvent.getEventList().get(0);
+    public void onEventLoad(Event event) {
+        this.event = event;
         getActivity().setTitle(event.getName());
         textView.setText(event.getDescription());
     }
