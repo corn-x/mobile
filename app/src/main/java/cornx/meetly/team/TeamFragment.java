@@ -103,7 +103,6 @@ public class TeamFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_member_details, container, false);
         listView = (ListView) view.findViewById(R.id.fragment_members_details_memberslist);
-        textView = (TextView) view.findViewById(R.id.fragment_members_details_description);
         listView.setAdapter(memberListAdapter);
         return view;
     }
