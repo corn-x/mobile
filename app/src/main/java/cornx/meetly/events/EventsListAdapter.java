@@ -25,14 +25,14 @@ public class EventsListAdapter extends BaseAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void setEvents (List<Event> e) {
-        events=e;
+    public void setEvents(List<Event> e) {
+        events = e;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return events==null ? 0 : events.size();
+        return events == null ? 0 : events.size();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class EventsListAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return events.get(position).getId();
     }
 
     @Override

@@ -19,7 +19,6 @@ public class EventActivity extends Activity {
             long id = getIntent().getLongExtra(Event.tid, -1l);
             Bundle bundle = new Bundle();
             bundle.putLong(Event.tid, id);
-            //Toast.makeText(this,""+id,Toast.LENGTH_LONG).show();
             eventFragment.setArguments(bundle);
             getFragmentManager().beginTransaction()
                     .add(R.id.container, eventFragment)

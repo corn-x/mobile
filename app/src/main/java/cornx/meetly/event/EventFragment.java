@@ -28,7 +28,6 @@ public class EventFragment extends Fragment implements View.OnClickListener {
     @Inject
     Bus bus;
 
-    private Event event;
     private long id;
     Button button;
     private TextView textView;
@@ -55,7 +54,6 @@ public class EventFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         id = getArguments().getLong(Event.tid, -1l);
-        //id=3;
         ObjectGraph objectGraph = ((MeetlyApplication) getActivity().getApplication()).getObjectGraph();
         objectGraph.inject(this);
         bus.register(this);
@@ -79,7 +77,6 @@ public class EventFragment extends Fragment implements View.OnClickListener {
 
     @Subscribe
     public void onEventLoad(Event event) {
-        this.event = event;
         getActivity().setTitle(event.getName());
         textView.setText(event.getDescription());
     }
