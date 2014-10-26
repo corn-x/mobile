@@ -78,7 +78,7 @@ public class EventFragment extends Fragment implements View.OnClickListener {
     @Subscribe
     public void onEventLoad(Event event) {
         getActivity().setTitle(event.getName());
-        textView.setText(event.getDescription());
+        textView.setText(event.toString());
     }
 
     @Override
