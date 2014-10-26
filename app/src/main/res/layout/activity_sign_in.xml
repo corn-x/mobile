@@ -8,33 +8,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/logo"
-        android:src="@drawable/meetly"
+        android:src="@drawable/meetly_android"
         android:scaleX="0.7"
         android:scaleY="0.7"
-        android:layout_marginTop="-20dp"
+        android:layout_marginTop="-16dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="E-mail:"
+        android:textStyle="italic"
+        android:textSize="30sp"
         android:id="@+id/activity_signin_mailtext"
         android:layout_below="@id/logo"
-        android:layout_marginTop="-15dp"
+        android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true"
         tools:ignore="HardcodedText" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Password:"
+        android:textStyle="italic"
+        android:textSize="30sp"
         android:id="@+id/activity_signin_passwtext"
         android:layout_below="@+id/activity_signin_inputmail"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="12dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -60,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/activity_signin_inputpassw"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="22dp"
         android:text="Sign in!"
         android:id="@+id/activity_signin_button"
         android:layout_centerHorizontal="true" />

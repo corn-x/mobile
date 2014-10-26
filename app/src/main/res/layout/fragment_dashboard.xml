@@ -4,10 +4,13 @@
     android:layout_height="match_parent"
     tools:context="cornx.meetly.dashboard.DashboardFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@drawable/meetly_android"
+        android:scaleX="1.5"
+        android:scaleY="1.5"
+        android:layout_gravity="center" />
 </FrameLayout>
